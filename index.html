@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BL BAIZID | Daily Captions</title>
+  <style>
+    body { font-family: sans-serif; background: #f2f2f2; padding: 20px; }
+    header { text-align: center; }
+    h1 { color: #333; }
+    div.item { background: #fff; padding: 15px; margin: 10px 0; border-radius: 6px; }
+    .meta { color: #888; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BL BAIZID Captions</h1>
+    <p>দৈনিক বাংলা ক্যাপশন</p>
+  </header>
+  <div id="ctn"></div>
+  <script>
+    (async () => {
+      const res = await fetch("YOUR_SCRIPT_URL");
+      const arr = await res.json();
+      const out = arr.reverse().map(c => \`
+        <div class="item">
+          <p>\${c.text}</p>
+          <div class="meta">\${c.category} • \${new Date(c.timestamp).toLocaleString('bn-BD')}</div>
+        </div>
+      \`).join('');
+      document.getElementById('ctn').innerHTML = out;
+    })();
+  </script>
+</body>
+</html>

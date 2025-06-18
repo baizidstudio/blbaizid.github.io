@@ -1,33 +1,37 @@
 
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BL BAIZID | Daily Captions</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BL BAIZID Captions</title>
   <style>
-    body { font-family: sans-serif; background:#f9f9f9; padding:20px; margin:0; }
-    header { text-align:center; padding:20px; background:#111; color:#fff; }
-    h1 { margin:0; font-size:2em; }
-    .item { background:#fff; padding:15px; margin:15px auto; max-width:600px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
-    .meta { color:#888; font-size:0.85em; margin-top:5px; }
+    body { font-family: sans-serif; padding: 20px; background: #f7f7f7; }
+    .caption { background: white; margin: 10px 0; padding: 15px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .category { color: gray; font-size: 14px; }
   </style>
 </head>
 <body>
-  <header><h1>BL BAIZID</h1><p>দৈনিক সুন্দর ক্যাপশন সংগ্রহ</p></header>
-  <div id="ctn"></div>
+  <h1>📜 BL BAIZID Captions</h1>
+  <div id="captions">Loading...</div>
+
   <script>
-    (async ()=>{
-      const res = await fetch("YOUR_SCRIPT_URL_HERE");
-      const data = await res.json();
-      const out = data.reverse().map(c=>`
-        <div class="item">
-          <p>${c.text}</p>
-          <div class="meta">${c.category} • ${new Date(c.timestamp).toLocaleString('bn-BD')}</div>
-        </div>
-      `).join('');
-      document.getElementById('ctn').innerHTML = out;
-    })();
+    fetch('YOUR_API_URL_HERE')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('captions');
+        container.innerHTML = "";
+        data.reverse().forEach(item => {
+          container.innerHTML += `
+            <div class="caption">
+              <div>${item.caption}</div>
+              <div class="category">${item.category || ''}</div>
+            </div>`;
+        });
+      })
+      .catch(err => {
+        document.getElementById('captions').innerHTML = "Error loading captions.";
+      });
   </script>
 </body>
 </html>
